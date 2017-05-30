@@ -41,7 +41,6 @@ GEM
     addressable (2.5.1)
       public_suffix (~> 2.0, >= 2.0.2)
     arel (8.0.0)
-    bindex (0.5.0)
     builder (3.2.3)
     byebug (9.0.6)
     capybara (2.14.0)
@@ -53,6 +52,7 @@ GEM
       xpath (~> 2.0)
     childprocess (0.7.0)
       ffi (~> 1.0, >= 1.0.11)
+    coderay (1.1.1)
     coffee-rails (4.2.2)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0)
@@ -63,6 +63,8 @@ GEM
     concurrent-ruby (1.0.5)
     erubi (1.6.0)
     execjs (2.7.0)
+    faker (1.7.3)
+      i18n (~> 0.5)
     ffi (1.9.18)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
@@ -88,6 +90,12 @@ GEM
     nio4r (2.1.0)
     nokogiri (1.7.2)
       mini_portile2 (~> 2.1.0)
+    pry (0.10.4)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
+    pry-rails (0.3.6)
+      pry (>= 0.10.4)
     public_suffix (2.0.5)
     puma (3.8.2)
     rack (2.0.3)
@@ -133,6 +141,7 @@ GEM
       childprocess (~> 0.5)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
+    slop (3.6.0)
     spring (2.0.2)
       activesupport (>= 4.2)
     spring-watcher-listen (2.0.1)
@@ -156,11 +165,6 @@ GEM
       thread_safe (~> 0.1)
     uglifier (3.2.0)
       execjs (>= 0.3.0, < 3)
-    web-console (3.5.1)
-      actionview (>= 5.0)
-      activemodel (>= 5.0)
-      bindex (>= 0.4.0)
-      railties (>= 5.0)
     webpacker (2.0)
       activesupport (>= 4.2)
       multi_json (~> 1.2)
@@ -179,8 +183,10 @@ DEPENDENCIES
   byebug
   capybara (~> 2.13)
   coffee-rails (~> 4.2)
+  faker
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
+  pry-rails
   puma (~> 3.7)
   rails (~> 5.1.1)
   sass-rails (~> 5.0)
@@ -191,7 +197,6 @@ DEPENDENCIES
   turbolinks (~> 5)
   tzinfo-data
   uglifier (>= 1.3.0)
-  web-console (>= 3.3.0)
   webpacker
 
 BUNDLED WITH
