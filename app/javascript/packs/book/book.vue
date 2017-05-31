@@ -11,7 +11,7 @@
             <input type="text" v-model="book" class="form-control"/>
           </div>
           <div class="col-md-6">
-            <button @click="addBook()" class="btn btn-success">Add Book</button>
+            <button @click="addBook()" class="btn btn-primary">Add Book</button>
           </div>
         </div>
       </div>
@@ -23,6 +23,7 @@
               <tr>
                 <th>#</th>
                 <th>Book Title</th>
+                <th>Like Count</th>
                 <th>Operations</th>
               </tr>
             </thead>
@@ -30,7 +31,12 @@
               <tr v-for='(book, index) in books'>
                 <td>{{ index + 1 }}</td>
                 <td>{{ book.title }}</td>
-                <td><button class="btn btn-danger btn-xs" @click="deleteBook(book.id)">Delete</button></td>
+                <td>{{ book.like_count }}</td>
+                <td>
+                  <button class="btn btn-success btn-xs" @click="likeBook(book)">Like</button>
+                  <button class="btn btn-warning btn-xs" @click="dislikeBook(book)">Dislike</button>
+                  <button class="btn btn-danger btn-xs" @click="deleteBook(book.id)">Delete</button>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -67,6 +73,20 @@ export default {
       this.$http.post('books.json', {title: this.book}, {})
         .then((res) => this.fetchBook(), this.book = '')
         .catch( (error) => console.log('Got a problem' + error));
+    },
+    likeBook(book) {
+      let count = book.like_count + 1
+      this.$http.put('books/' + book.id, {like_count: count})
+        .then((res) => this.fetchBook(), this.book = '')
+        .catch( (error) => console.log('Got a problem' + error));
+    },
+    dislikeBook(book) {
+      if (book.like_count > 0) {
+          let count = book.like_count - 1
+          this.$http.put('books/' + book.id, {like_count: count})
+            .then((res) => this.fetchBook(), this.book = '')
+            .catch( (error) => console.log('Got a problem' + error));
+      }
     },
     deleteBook(book_id) {
       this.$http.delete('books/' + book_id)
