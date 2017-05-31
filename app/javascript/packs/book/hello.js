@@ -8,12 +8,10 @@ import Vue from 'vue'
 import App from '../book/book.vue'
 import Resource from 'vue-resource'
 
-Vue.use(Resource)
+Vue.use(Resource);
 
 document.addEventListener('DOMContentLoaded', () => {
   Vue.http.headers.common['X-CSRF-Token'] = document.getElementsByName('csrf-token')[0].getAttribute('content')
-  document.body.appendChild(document.createElement('hello'))
-  const app = new Vue(App).$mount('hello')
-
-  console.log(app)
+  document.body.appendChild(document.createElement('book'))
+  const app = new Vue(App).$mount('book')
 })

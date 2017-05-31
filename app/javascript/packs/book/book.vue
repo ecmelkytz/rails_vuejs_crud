@@ -1,33 +1,55 @@
 <template>
   <div id="book">
-    <input type="text" v-model="addbook"/>
-    <button @click="addBook()">Add Book</button>
+    <div class="container">
+      <div class="col-md-12">
+        <center>
+          <input type="text" v-model="addbook"/>
+          <button @click="addBook()">Add Book</button>
+          <table>
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th colspan="3"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <div v-for="book in books">
+                {{ book.title }}
+              </div>
+            </tbody>
+          </table>
+        </center>
+      </div>
+    </div>
   </div>
+
 </template>
 
 <script>
 
 export default {
   name: 'book',
-  created() {
-    fetch('books.json')
-    .then((res) => { return res.json() })
-    .then((res) => { this.books = res })
-  },
   data: function () {
     return {
-      message: "Hello Vue!",
-      addbook: '',
-      books: []
+      books: [],
+      addbook: ''
     }
   },
+  created() {
+    this.fetchBook();
+  },
   methods: {
+    fetchBook() {
+      fetch('books.json')
+      .then((res) => { return res.json() })
+      .then((res) => { this.books = res })
+    },
     addBook() {
       this.$http.post('books.json', {title: this.addbook}, {})
-        .then((res) => window.location = "/books")
+        .then((res) => this.fetchBook())
         .catch( (error) => console.log('Got a problem' + error));
     }
-  }
+  },
 }
 </script>
 
