@@ -7,9 +7,10 @@
 import Vue from 'vue'
 import App from '../book/book.vue'
 import Resource from 'vue-resource'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap/dist/js/bootstrap.js'
 
 Vue.use(Resource);
-
 document.addEventListener('DOMContentLoaded', () => {
   Vue.http.headers.common['X-CSRF-Token'] = document.getElementsByName('csrf-token')[0].getAttribute('content')
   document.body.appendChild(document.createElement('book'))

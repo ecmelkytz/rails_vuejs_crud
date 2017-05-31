@@ -1,35 +1,45 @@
 <template>
   <div id="book">
     <div class="container">
-      <div class="col-md-12">
-        <center>
-          <input type="text" v-model="addbook"/>
-          <button @click="addBook()">Add Book</button>
-          <table>
+      <div class="row">
+        <div class="col-md-12 col-md-offset-2">
+          <div class="col-md-6">
+            <input type="text" v-model="addbook" class="form-control"/>
+          </div>
+          <div class="col-md-6">
+            <button @click="addBook()" class="btn btn-success">Add Book</button>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-md-7 col-md-offset-2">
+          <table class="table">
             <thead>
               <tr>
-                <th>Title</th>
-                <th colspan="3"></th>
+                <th>#</th>
+                <th>Book Title</th>
+                <th>Operations</th>
               </tr>
             </thead>
             <tbody>
-              <div v-for="book in books">
-                {{ book.title }}
-              </div>
+              <tr v-for='(book, index) in books'>
+                <td>{{ index + 1 }}</td>
+                <td>{{ book.title }}</td>
+                <td></td>
+              </tr>
             </tbody>
           </table>
-        </center>
+        </div>
       </div>
     </div>
   </div>
-
 </template>
 
 <script>
-
 export default {
   name: 'book',
-  data: function () {
+  data() {
     return {
       books: [],
       addbook: ''
