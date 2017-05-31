@@ -1,10 +1,14 @@
 <template>
   <div id="book">
+    <navbar-book></navbar-book>
     <div class="container">
+      <br><br>
+      <center><h1>Books</h1></center>
+      <br>
       <div class="row">
         <div class="col-md-12 col-md-offset-2">
           <div class="col-md-6">
-            <input type="text" v-model="addbook" class="form-control"/>
+            <input type="text" v-model="book" class="form-control"/>
           </div>
           <div class="col-md-6">
             <button @click="addBook()" class="btn btn-success">Add Book</button>
@@ -26,7 +30,7 @@
               <tr v-for='(book, index) in books'>
                 <td>{{ index + 1 }}</td>
                 <td>{{ book.title }}</td>
-                <td></td>
+                <td><button class="btn btn-danger btn-xs" @click="deleteBook(book.id)">Delete</button></td>
               </tr>
             </tbody>
           </table>
@@ -35,14 +39,19 @@
     </div>
   </div>
 </template>
-
 <script>
+
+import Navbar from '../book/navbar.vue'
+
 export default {
   name: 'book',
+  components: {
+    'navbar-book': Navbar
+  },
   data() {
     return {
       books: [],
-      addbook: ''
+      book: ''
     }
   },
   created() {
@@ -55,7 +64,12 @@ export default {
       .then((res) => { this.books = res })
     },
     addBook() {
-      this.$http.post('books.json', {title: this.addbook}, {})
+      this.$http.post('books.json', {title: this.book}, {})
+        .then((res) => this.fetchBook(), this.book = '')
+        .catch( (error) => console.log('Got a problem' + error));
+    },
+    deleteBook(book_id) {
+      this.$http.delete('books/' + book_id)
         .then((res) => this.fetchBook())
         .catch( (error) => console.log('Got a problem' + error));
     }
