@@ -30,11 +30,12 @@
             <tbody>
               <tr v-for='(book, index) in books'>
                 <td>{{ index + 1 }}</td>
-                <td>{{ book.title }}</td>
+                <td v-show="!book.editable" @click='toggleEdit(this, book)' style="cursor: pointer;">{{ book.title }}</td>
+                <input type="text" v-model="book.title" v-bind:id="book.title" v-show="book.editable" @keyup.enter="editBook(book)">
                 <td>{{ book.like_count }}</td>
                 <td>
-                  <button class="btn btn-success btn-xs" @click="likeBook(book)">Like</button>
-                  <button class="btn btn-warning btn-xs" @click="dislikeBook(book)">Dislike</button>
+                  <button class="btn btn-default btn-xs" @click="likeBook(book)">Like</button>
+                  <button class="btn btn-default btn-xs" @click="dislikeBook(book)">Dislike</button>
                   <button class="btn btn-danger btn-xs" @click="deleteBook(book.id)">Delete</button>
                 </td>
               </tr>
@@ -72,27 +73,35 @@ export default {
     addBook() {
       this.$http.post('books.json', {title: this.book}, {})
         .then((res) => this.fetchBook(), this.book = '')
-        .catch( (error) => console.log('Got a problem' + error));
+        .catch((error) => console.log('Got a problem' + error));
     },
     likeBook(book) {
       let count = book.like_count + 1
       this.$http.put('books/' + book.id, {like_count: count})
         .then((res) => this.fetchBook(), this.book = '')
-        .catch( (error) => console.log('Got a problem' + error));
+        .catch((error) => console.log('Got a problem' + error));
     },
     dislikeBook(book) {
       if (book.like_count > 0) {
-          let count = book.like_count - 1
-          this.$http.put('books/' + book.id, {like_count: count})
-            .then((res) => this.fetchBook(), this.book = '')
-            .catch( (error) => console.log('Got a problem' + error));
+        let count = book.like_count - 1
+        this.$http.put('books/' + book.id, {like_count: count})
+          .then((res) => this.fetchBook(), this.book = '')
+          .catch((error) => console.log('Got a problem' + error));
       }
     },
     deleteBook(book_id) {
       this.$http.delete('books/' + book_id)
         .then((res) => this.fetchBook())
         .catch( (error) => console.log('Got a problem' + error));
-    }
+    },
+    toggleEdit: function(ev, book) {
+      this.$http.put('books/' + book.id, {editable: true})
+        .then((res) => this.fetchBook())
+    },
+    editBook(book) {
+      this.$http.put('books/' + book.id, {editable: false, title: book.title })
+        .then((res) => this.fetchBook())
+    },
   },
 }
 </script>
