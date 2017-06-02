@@ -1,6 +1,6 @@
 # Rails 5.1 & Vue.js 2 CRUD
 
-This repo implements CRUD operations using Webpack.
+This repo implements CRUD operations using Webpack. Check out [live demo](https://stormy-ocean-69391.herokuapp.com/).
 
 ### Requirements:
 
