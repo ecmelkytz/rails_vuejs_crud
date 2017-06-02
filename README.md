@@ -1,24 +1,20 @@
-# README
+# Rails 5.1 & Vue.js 2 CRUD
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This repo implements CRUD operations using Webpack.
 
-Things you may want to cover:
+### Requirements:
 
-* Ruby version
+- Ruby 2.2.2 or newer
 
-* System dependencies
+- Node 6.4 or newer
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+### Things to do
+```
+$ git clone git@github.com:ecmelkytz/rails_vuejs_crud.git
+$ bundle
+$ yarn install
+$ rails db:migrate
+$ rails db:seed
+$ rails s
+$ ./bin/webpack-dev-server
+```
