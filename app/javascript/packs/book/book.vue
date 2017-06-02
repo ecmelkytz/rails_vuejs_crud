@@ -31,7 +31,7 @@
               <tr v-for='(book, index) in books'>
                 <td>{{ index + 1 }}</td>
                 <td v-show="!book.editable" @click='toggleEdit(this, book)' style="cursor: pointer;">{{ book.title }}</td>
-                <input type="text" v-model="book.title" v-bind:id="book.title" v-show="book.editable" @keyup.enter="editBook(book)">
+                <input type="text" v-model="book.title" v-bind:id="book.title" v-show="book.editable" @blur="editBook(book)">
                 <td>{{ book.like_count }}</td>
                 <td>
                   <button class="btn btn-default btn-xs" @click="likeBook(book)">Like</button>
@@ -92,7 +92,7 @@ export default {
     deleteBook(book_id) {
       this.$http.delete('books/' + book_id)
         .then((res) => this.fetchBook())
-        .catch( (error) => console.log('Got a problem' + error));
+        .catch((error) => console.log('Got a problem' + error));
     },
     toggleEdit: function(ev, book) {
       this.$http.put('books/' + book.id, {editable: true})
