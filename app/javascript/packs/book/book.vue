@@ -7,12 +7,14 @@
       <br>
       <div class="row">
         <div class="col-md-12 col-md-offset-2">
-          <div class="col-md-6">
-            <input type="text" v-model="book" class="form-control"/>
-          </div>
-          <div class="col-md-6">
-            <button @click="addBook()" class="btn btn-primary">Add Book</button>
-          </div>
+          <form>
+            <div class="col-md-6">
+              <input type="text" v-model="book" class="form-control" autofocus="true">
+            </div>
+            <div class="col-md-6">
+              <button @click="addBook()" class="btn btn-primary" :disabled="!book.length">Add Book</button>
+            </div>
+          </form>
         </div>
       </div>
       <br>
